@@ -108,6 +108,17 @@ nav .nav-links {
   display: flex;
   align-items: center;
   gap: clamp(16px, 2.5vw, 40px);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+nav .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
 }
 
 nav .nav-links a {
@@ -163,36 +174,122 @@ nav .sign-in:hover {
 }
 
 .hamburger span {
-  width: 28px;
-  height: 2.5px;
+  display: block;
+  width: 26px;
+  height: 2px;
   background: var(--white);
   border-radius: 2px;
   transition: var(--transition);
 }
 
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+/* Mobile drawer overlay */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hide mobile sign-in inside centered nav-links on desktop */
+.nav-sign-in { display: none !important; }
 
 @media (max-width: 1024px) {
   .hamburger { display: flex; }
+
+  .desktop-sign-in { display: none !important; }
+
   nav .nav-links {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 70%;
-    max-width: 400px;
+    width: 75%;
+    max-width: 340px;
     height: 100vh;
     background: var(--primary);
     flex-direction: column;
-    justify-content: center;
-    gap: 32px;
-    transition: var(--transition);
+    padding: 80px 28px 40px;
+    gap: 0;
+    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1000;
+    overflow-y: auto;
+    left: auto;
+    transform: none;
+    align-items: stretch;
   }
+
   nav .nav-links.open { right: 0; }
-  nav .nav-links a { font-size: 22px; }
-  nav .sign-in { display: flex; }
+
+  .nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+
+  .nav-close::before,
+  .nav-close::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 1px;
+  }
+
+  .nav-close::before { transform: rotate(45deg); }
+  .nav-close::after { transform: rotate(-45deg); }
+
+  nav .nav-links a {
+    font-size: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  nav .nav-links a::after { display: none; }
+
+  nav .nav-links a.active,
+  nav .nav-links a:hover { color: var(--white); font-weight: 500; }
+
+  .nav-sign-in {
+    display: flex !important;
+    width: 100%;
+    height: auto;
+    padding: 14px 20px;
+    margin-top: 28px;
+    justify-content: center;
+    border: 1.5px solid var(--gray);
+    border-radius: var(--radius-md);
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .nav-sign-in:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--text-dark);
+  }
 }
 
 /* ===== HEADER SECTION (page hero) ===== */
@@ -284,6 +381,7 @@ footer {
   border-radius: 50%;
   background: rgba(255,255,255,0.1);
   transition: var(--transition);
+  color: var(--white);
 }
 
 .footer-social a:hover {

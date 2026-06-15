@@ -20,17 +20,22 @@
       <img src="assets/images/logo.png" alt="CarXpert" />
     </div>
     <div class="nav-links">
+      <button class="nav-close" aria-label="Close menu"></button>
       <a href="index.html" class="active">Home</a>
       <a href="pricing.html">Our pricing</a>
       <a href="about.html">About us</a>
       <a href="blog.html">Blog</a>
       <a href="contact.html">Contact us</a>
-      <a href="#" class="sign-in">Sign in</a>
+      <a href="#" class="sign-in nav-sign-in">Sign in</a>
     </div>
-    <div class="hamburger">
-      <i class="fas fa-bars"></i>
+    <div class="nav-actions">
+      <a href="#" class="sign-in desktop-sign-in">Sign in</a>
+      <div class="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </div>
     </div>
   </nav>
+  <div class="nav-overlay"></div>
 
   <section class="hero-section">
     <div class="hero-bg" style="background-image: url('https://static.codia.ai/image/2026-06-15/A91pc8O8nD.png');"></div>
@@ -113,51 +118,53 @@
     </div>
   </section>
 
-  <section class="testimonials-section">
+  <section class="testimonials-section" id="testimonials">
     <div class="container">
       <h2 class="section-title fade-up">Testimonials</h2>
       <p class="section-subtitle fade-up">Smart diagnostics and reliable solutions, all in one place.</p>
       <div class="testimonials-wrapper">
-        <div class="testimonial-nav testimonials-prev fade-left">
-          <i class="fas fa-chevron-circle-left fa-2x" style="color:#00507D;"></i>
-        </div>
-        <div class="testimonials-track">
-          <div class="testimonial-card">
-            <div class="testimonial-inner">
-              <p>"CarXpert did a better job than the authorized service center and at a lower price. Definitely a money saver."</p>
-              <div class="testimonial-author">
-                <img src="https://static.codia.ai/image/2026-06-15/LmDUujEUQM.png" alt="Lucas Moreau" class="testimonial-avatar" />
-                <span>Lucas Moreau</span>
+        <button class="testimonial-nav testimonials-prev" aria-label="Previous">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="testimonials-slider">
+          <div class="testimonials-track">
+            <div class="testimonial-card">
+              <div class="testimonial-inner">
+                <p>"CarXpert did a better job than the authorized service center and at a lower price. Definitely a money saver."</p>
+                <div class="testimonial-author">
+                  <img src="https://static.codia.ai/image/2026-06-15/LmDUujEUQM.png" alt="Lucas Moreau" class="testimonial-avatar" />
+                  <span>Lucas Moreau</span>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-inner">
+                <p>"Professional team, genuine parts, and high quality service. My car was delivered on time and in perfect condition."</p>
+                <div class="testimonial-author">
+                  <img src="https://static.codia.ai/image/2026-06-15/T1bEcjkTFt.png" alt="Sarah Bennett" class="testimonial-avatar" />
+                  <span>Sarah Bennett</span>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-inner">
+                <p>"I got my car serviced without leaving my office. The pick up and dropoff service is a game changer super convenient!"</p>
+                <div class="testimonial-author">
+                  <img src="https://static.codia.ai/image/2026-06-15/CxrQ2CfoEQ.png" alt="Daniel Carter" class="testimonial-avatar" />
+                  <span>Daniel Carter</span>
+                </div>
               </div>
             </div>
           </div>
-          <div class="testimonial-card">
-            <div class="testimonial-inner">
-              <p>"Professional team, genuine parts, and high quality service. My car was delivered on time and in perfect condition."</p>
-              <div class="testimonial-author">
-                <img src="https://static.codia.ai/image/2026-06-15/T1bEcjkTFt.png" alt="Sarah Bennett" class="testimonial-avatar" />
-                <span>Sarah Bennett</span>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="testimonial-inner">
-              <p>"I got my car serviced without leaving my office. The pick up and dropoff service is a game changer super convenient!"</p>
-              <div class="testimonial-author">
-                <img src="https://static.codia.ai/image/2026-06-15/CxrQ2CfoEQ.png" alt="Daniel Carter" class="testimonial-avatar" />
-                <span>Daniel Carter</span>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="testimonial-nav testimonials-next fade-right">
-          <i class="fas fa-chevron-circle-right fa-2x" style="color:#00507D;"></i>
-        </div>
+        <button class="testimonial-nav testimonials-next" aria-label="Next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
       <div class="testimonial-dots">
-        <span class="testimonial-dot active"></span>
-        <span class="testimonial-dot"></span>
-        <span class="testimonial-dot"></span>
+        <span class="testimonial-dot active" data-index="0"></span>
+        <span class="testimonial-dot" data-index="1"></span>
+        <span class="testimonial-dot" data-index="2"></span>
       </div>
     </div>
   </section>

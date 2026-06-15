@@ -115,7 +115,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--gray-light);
+  background: var(--primary);
   transition: var(--transition);
 }
 

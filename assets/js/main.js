@@ -39,16 +39,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== MOBILE HAMBURGER =====
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
+  const navOverlay = document.querySelector('.nav-overlay');
+  const navClose = document.querySelector('.nav-close');
+
+  const closeNav = () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+    if (navOverlay) navOverlay.classList.remove('active');
+  };
+
+  const openNav = () => {
+    hamburger.classList.add('active');
+    navLinks.classList.add('open');
+    if (navOverlay) navOverlay.classList.add('active');
+  };
+
   if (hamburger && navLinks) {
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('open');
+      if (navLinks.classList.contains('open')) closeNav();
+      else openNav();
     });
+
+    if (navClose) navClose.addEventListener('click', closeNav);
+    if (navOverlay) navOverlay.addEventListener('click', closeNav);
+
     navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('open');
-      });
+      link.addEventListener('click', closeNav);
     });
   }
 
@@ -165,38 +181,116 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== TESTIMONIALS DOT NAVIGATION (mobile, index.html) =====
-  const dots = document.querySelectorAll('.testimonial-dot');
-  const cards = document.querySelectorAll('.testimonial-card');
-  if (dots.length && cards.length) {
+  // ===== TESTIMONIALS CAROUSEL =====
+  const testimonialsSection = document.getElementById('testimonials');
+  if (testimonialsSection) {
+    const track = testimonialsSection.querySelector('.testimonials-track');
+    const cards = testimonialsSection.querySelectorAll('.testimonial-card');
+    const dots = testimonialsSection.querySelectorAll('.testimonial-dot');
+    const prevBtn = testimonialsSection.querySelector('.testimonials-prev');
+    const nextBtn = testimonialsSection.querySelector('.testimonials-next');
+    if (!track || !cards.length) return;
+
     let current = 0;
-    const show = (idx) => {
-      cards.forEach((c, i) => {
-        c.style.display = i === idx ? 'flex' : 'none';
-      });
-      dots.forEach((d, i) => {
-        d.classList.toggle('active', i === idx);
-      });
+    let autoPlayTimer = null;
+    let isDragging = false;
+    let startX = 0;
+    let prevTranslate = 0;
+    let currentTranslate = 0;
+
+    const getSlideWidth = () => track.querySelector('.testimonial-card').offsetWidth;
+
+    const goTo = (index) => {
+      current = Math.max(0, Math.min(index, cards.length - 1));
+      const slideWidth = getSlideWidth();
+      prevTranslate = current * -slideWidth;
+      track.style.transform = `translateX(${prevTranslate}px)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      prevBtn.style.opacity = current === 0 ? '0.4' : '1';
+      nextBtn.style.opacity = current === cards.length - 1 ? '0.4' : '1';
     };
-    const initCarousel = () => {
-      if (window.innerWidth <= 1200) {
-        show(current);
-      } else {
-        cards.forEach(c => { c.style.display = 'flex'; });
-        dots.forEach(d => d.classList.remove('active'));
-      }
-    };
+
+    const next = () => { if (current < cards.length - 1) goTo(current + 1); };
+    const prev = () => { if (current > 0) goTo(current - 1); };
+
+    // Arrows
+    if (nextBtn) nextBtn.addEventListener('click', next);
+    if (prevBtn) prevBtn.addEventListener('click', prev);
+
+    // Dots
     dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => { current = i; show(i); });
+      dot.addEventListener('click', () => goTo(i));
     });
-    initCarousel();
-    window.addEventListener('resize', initCarousel);
-    setInterval(() => {
-      if (window.innerWidth <= 1200) {
-        current = (current + 1) % cards.length;
-        show(current);
+
+    // Drag / Swipe
+    const getPointerX = (e) => e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+
+    const dragStart = (e) => {
+      isDragging = true;
+      track.classList.add('dragging');
+      startX = getPointerX(e);
+      currentTranslate = prevTranslate;
+    };
+
+    const dragMove = (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const diff = getPointerX(e) - startX;
+      const slideWidth = getSlideWidth();
+      const maxTranslate = -(cards.length - 1) * slideWidth;
+      currentTranslate = prevTranslate + diff;
+      currentTranslate = Math.max(maxTranslate - slideWidth * 0.3, Math.min(slideWidth * 0.3, currentTranslate));
+      track.style.transform = `translateX(${currentTranslate}px)`;
+    };
+
+    const dragEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('dragging');
+      const slideWidth = getSlideWidth();
+      const movedBy = prevTranslate - currentTranslate;
+      if (Math.abs(movedBy) > slideWidth * 0.2) {
+        if (movedBy > 0 && current < cards.length - 1) current++;
+        else if (movedBy < 0 && current > 0) current--;
       }
-    }, 5000);
+      goTo(current);
+    };
+
+    track.addEventListener('mousedown', dragStart);
+    track.addEventListener('mousemove', dragMove);
+    track.addEventListener('mouseup', dragEnd);
+    track.addEventListener('mouseleave', dragEnd);
+    track.addEventListener('touchstart', dragStart, { passive: true });
+    track.addEventListener('touchmove', dragMove, { passive: false });
+    track.addEventListener('touchend', dragEnd);
+
+    // Auto-play
+    const startAutoPlay = () => {
+      stopAutoPlay();
+      autoPlayTimer = setInterval(() => {
+        if (current >= cards.length - 1) goTo(0);
+        else next();
+      }, 5000);
+    };
+
+    const stopAutoPlay = () => {
+      if (autoPlayTimer) { clearInterval(autoPlayTimer); autoPlayTimer = null; }
+    };
+
+    testimonialsSection.addEventListener('mouseenter', stopAutoPlay);
+    testimonialsSection.addEventListener('mouseleave', startAutoPlay);
+
+    // Resize
+    let resizeTimeout;
+    const onResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => goTo(current), 100);
+    };
+    window.addEventListener('resize', onResize);
+
+    // Init
+    goTo(0);
+    startAutoPlay();
   }
 
 });
