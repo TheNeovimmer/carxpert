@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - CarXpert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/contact.css" />
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <nav>
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="CarXpert" />
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="pricing.html">Our pricing</a>
+      <a href="about.html">About us</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html" class="active">Contact us</a>
+      <a href="#" class="sign-in">Sign in</a>
+    </div>
+    <div class="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1 class="fade-up"><span>Contact</span> us</h1>
+  </section>
+
+  <section class="contact-section">
+    <div class="container contact-grid">
+      <div class="contact-form-wrapper fade-left">
+        <h2 class="contact-heading"><span>Get</span> In Touch</h2>
+        <form id="contactForm" class="contact-form">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="How can we help?" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-white">Send</button>
+        </form>
+      </div>
+
+      <div class="contact-info fade-right">
+        <h3>We are always ready to help you and answer your question</h3>
+        <div class="info-item">
+          <span class="info-label">Call Center :</span>
+          <span class="info-value">+49 172 800 1001</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Email :</span>
+          <span class="info-value">carxpert@gmail.com</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Social network :</span>
+          <div class="info-social">
+            <a href="#" aria-label="Facebook">
+              <i class="fab fa-facebook-f fa-lg" style="color:#00507D;"></i>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <i class="fab fa-instagram" style="color:#00507D;font-size:24px;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="CarXpert" style="height:40px;" />
+        <p>Reliable service with smart diagnostics and care</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <i class="fab fa-instagram" style="color:white;font-size:24px;"></i>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <a href="index.html">Home</a>
+        <a href="pricing.html">Our pricing</a>
+        <a href="about.html">About us</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact us</h4>
+        <div class="footer-contact">
+          <p>
+            <i class="fas fa-phone-alt"></i>
+            +49 172 800 1001
+          </p>
+          <p>
+            <i class="fas fa-envelope"></i>
+            carxpert@gmail.com
+          </p>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <p class="footer-bottom">&copy; 2026 Carxpert</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
