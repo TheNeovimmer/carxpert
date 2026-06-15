@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--primary);
+  background: var(--primary-dark);
   position: relative;
   padding: 24px;
   overflow: hidden;
@@ -14,14 +14,14 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 70%, rgba(244, 208, 29, 0.12), transparent 60%);
+  background: radial-gradient(circle at 30% 70%, rgba(244, 208, 29, 0.1), transparent 60%);
   pointer-events: none;
 }
 
 .auth-card {
-  background: var(--white);
+  background: var(--primary);
   border-radius: var(--radius-lg);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
   width: 100%;
   max-width: 440px;
   padding: 48px 40px 40px;
@@ -38,20 +38,21 @@
   height: 44px;
   width: auto;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .auth-title {
   text-align: center;
   font-size: 28px;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--white);
   margin-bottom: 4px;
 }
 
 .auth-subtitle {
   text-align: center;
   font-size: 15px;
-  color: var(--text-body);
+  color: rgba(255, 255, 255, 0.75);
   margin-bottom: 32px;
 }
 
@@ -70,30 +71,30 @@
 .auth-field label {
   font-size: 14px;
   font-weight: 600;
-  color: var(--primary);
+  color: var(--accent);
 }
 
 .auth-field input {
   width: 100%;
   padding: 12px 16px;
-  border: 1.5px solid var(--gray);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-sm);
   font-size: 15px;
   font-family: var(--font);
-  color: var(--text-dark);
-  background: rgba(0, 80, 125, 0.03);
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
   transition: var(--transition);
   outline: none;
 }
 
 .auth-field input::placeholder {
-  color: #999;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .auth-field input:focus {
-  border-color: var(--primary);
-  background: var(--white);
-  box-shadow: 0 0 0 3px rgba(0, 80, 125, 0.1);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(244, 208, 29, 0.15);
 }
 
 .auth-btn {
@@ -113,7 +114,7 @@
 
 .auth-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(244, 208, 29, 0.35);
+  box-shadow: 0 6px 24px rgba(244, 208, 29, 0.35);
 }
 
 .auth-btn:active {
@@ -132,12 +133,12 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--gray);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .auth-divider span {
   font-size: 13px;
-  color: var(--text-body);
+  color: rgba(255, 255, 255, 0.6);
   white-space: nowrap;
 }
 
@@ -153,44 +154,49 @@
   justify-content: center;
   gap: 8px;
   padding: 11px;
-  border: 1.5px solid rgba(0, 80, 125, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
   border-radius: var(--radius-sm);
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.08);
   font-size: 14px;
   font-weight: 500;
   font-family: var(--font);
-  color: var(--primary);
+  color: var(--white);
   cursor: pointer;
   transition: var(--transition);
 }
 
 .auth-social-btn:hover {
-  border-color: var(--primary);
-  background: rgba(0, 80, 125, 0.06);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--accent);
 }
 
 .auth-social-btn i {
   font-size: 18px;
-  color: var(--primary);
+  color: var(--white);
+}
+
+.auth-social-btn:hover i {
+  color: var(--accent);
 }
 
 .auth-footer {
   text-align: center;
   margin-top: 24px;
   font-size: 14px;
-  color: var(--text-body);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .auth-footer a {
-  color: var(--primary);
+  color: var(--accent);
   font-weight: 600;
   text-decoration: none;
   transition: var(--transition);
 }
 
 .auth-footer a:hover {
-  color: var(--primary-dark);
   text-decoration: underline;
+  opacity: 0.85;
 }
 
 .auth-forgot {
@@ -200,13 +206,13 @@
 
 .auth-forgot a {
   font-size: 13px;
-  color: var(--primary);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: var(--transition);
 }
 
 .auth-forgot a:hover {
-  text-decoration: underline;
+  color: var(--accent);
 }
 
 @media (max-width: 480px) {
